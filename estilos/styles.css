@@ -68,27 +68,20 @@ nav {
 /* PÁGINA DE INICIO - CARRUSEL */
 .carousel-wrapper {
     margin: 40px auto;
-    width: 80%;
-    max-width: 800px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    overflow: hidden;
+    width: 40%;
 }
 
 .carousel {
-    height: auto;
+    height: 40%;
 }
 
 .carousel-inner,
-.carousel-item {
-    height: 100%;
-    border-radius: 8px;
-    overflow: hidden;
+.carousel-item,
+.carousel-item img {
+    height: 40%;
 }
 
 .carousel-item img {
-    width: 100%;
-    height: auto;
     object-fit: cover;
 }
 
@@ -100,32 +93,26 @@ nav {
 }
 
 .textC {
-    color: #333;
-    font-weight: bold;
+    background-color: aquamarine;
+    color: black;
     margin: 0;
     font-size: 1.2rem;
 }
 
 .custom-buttons {
-    margin: 30px auto;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    width: 100%;
-    max-width: 800px;
 }
 
 .custom-buttons .btn {
-    width: 80%;
-    max-width: 300px;
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    transition: all 0.3s ease;
+    margin: 10px 0;
+    width: 200px;
+    color: white;
+    text-decoration: none;
     text-align: center;
-    font-weight: 500;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .custom-buttons .btn-primary {
@@ -135,7 +122,6 @@ nav {
 
 .custom-buttons .btn-primary:hover {
     background-color: #3a80d2;
-    transform: translateY(-2px);
 }
 
 .custom-buttons .btn-secondary {
@@ -145,7 +131,6 @@ nav {
 
 .custom-buttons .btn-secondary:hover {
     background-color: #5a6268;
-    transform: translateY(-2px);
 }
 
 .custom-buttons .btn a {
@@ -213,41 +198,7 @@ nav {
     font-size: 0.9em;
     color: #666;
 }
-.carousel-wrapper {
-    margin: 40px auto;
-    width: 40%;
-  }
 
-  .carousel {
-    height: 40%;
-  }
-
-  .carousel-inner,
-  .carousel-item,
-  .carousel-item img {
-    height: 40%;
-  }
-
-  .carousel-item img {
-    object-fit: cover;
-  }
-
-  .custom-buttons {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .custom-buttons .btn {
-    margin: 10px 0;
-    width: 200px;
-  }
-
-  .textC{
-      background-color: aquamarine;
-      color: black;
-  }
 /**UPLOADER**/
 .uploader{
     box-sizing: border-box;
@@ -560,6 +511,7 @@ nav {
     80% { opacity: 1; }
     100% { opacity: 0; }
 }
+
 /* Estilos mejorados para la galería de outfits */
 :root {
     --primary-color: #6a11cb;
@@ -766,217 +718,23 @@ nav {
     color: white !important;
     padding: 0.8rem 0;
 }
+
+/* Mensaje cuando no hay prendas */
+.empty-message {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    color: #666;
+    margin: 20px 0;
+    font-size: 1rem;
+}
+
 /* Media queries para pantallas pequeñas (móviles) */
 @media screen and (max-width: 768px) {
     .preview-container {
         height: 570px; /* Más alto en móviles para simular la relación de aspecto de la cámara */
     }
-   /* Estilos mejorados para la galería de outfits */
-   :root {
-    --primary-color: #6a11cb;
-    --secondary-color: #2575fc;
-    --dark-color: #2c3e50;
-    --light-color: #f8f9fa;
-}
-#outfitGallery {
-    margin-top: 2rem;
-}
-
-.outfit-card {
-    border: none;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    background-color: white;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-}
-
-.outfit-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
-}
-
-.outfit-header {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--dark-color);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid #f0f0f0;
-    display: flex;
-    align-items: center;
-}
-
-.outfit-header i {
-    margin-right: 0.8rem;
-    color: var(--primary-color);
-}
-
-.outfit-item {
-    display: flex;
-    align-items: center;
-    padding: 1rem 0;
-    border-bottom: 1px solid #f5f5f5;
-}
-
-.outfit-item:last-child {
-    border-bottom: none;
-}
-
-.outfit-item-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 1rem;
-    color: var(--primary-color);
-}
-
-.outfit-item-content {
-    flex-grow: 1;
-}
-
-.outfit-item-title {
-    font-weight: 500;
-    margin-bottom: 0.3rem;
-}
-
-.outfit-item-subtitle {
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* Botones */
-.btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    border: none;
-    padding: 0.5rem 1.25rem;
-    font-weight: 500;
-}
-
-.filter-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-/* Estilos para el modal y las imágenes */
-#outfitModal .modal-body {
-    padding: 20px;
-}
-
-.main-image-container {
-    margin-bottom: 20px;
-    text-align: center;
-    max-height: 300px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    padding: 10px;
-}
-
-.main-image-container img {
-    max-height: 280px;
-    max-width: 100%;
-    object-fit: contain;
-    border-radius: 4px;
-}
-
-.outfit-preview {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.clothing-item {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.clothing-item:hover {
-    border-color: #007bff;
-    transform: scale(1.03);
-}
-
-.clothing-item.selected {
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-.clothing-item img {
-    max-height: 90px;
-    max-width: 100%;
-    object-fit: contain;
-}
-
-.clothing-list-item {
-    display: flex;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.clothing-list-item img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    margin-right: 10px;
-    border-radius: 4px;
-}
-/* Para la imagen principal */
-.main-image-container {
-    max-height: 250px; /* Ajusta este valor */
-}
-
-/* Para las miniaturas */
-.clothing-item {
-    height: 80px; /* Ajusta este valor */
-}
-
-.clothing-item img {
-    max-height: 70px; /* Ajusta este valor */
-}
-
-/* Para las imágenes en la lista */
-.clothing-list-item img {
-    width: 40px; /* Ajusta este valor */
-    height: 40px; /* Ajusta este valor */
-}
-.nav-link.active {
-    background-color: rgba(255, 255, 255, 0.15) !important;
-    font-weight: 600;
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-}
-
-.navbar-brand i {
-    font-size: 1.3rem;
-}
-.navbar.bg-gradient {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
-    color: white !important;
-    padding: 0.8rem 0;
-}
     
     /* Ajustar la posición del botón de captura para la nueva altura */
     .capture-button {

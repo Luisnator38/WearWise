@@ -68,9 +68,37 @@
     </div>
 
     <div class="custom-buttons">
-        <a href="uploader.html" class="btn btn-primary">Subir Artículos</a>
+        <button onclick="abrirVentanaUploader()" class="btn btn-primary">Subir Artículos</button>
         <a href="miInventario.html" class="btn btn-secondary">Ver mi armario</a>
     </div>
+
+    <script>
+        // Función para abrir la ventana emergente con uploader.html
+        function abrirVentanaUploader() {
+            // Calcular dimensiones para la ventana emergente
+            const ancho = Math.min(800, window.innerWidth - 20);
+            const alto = Math.min(700, window.innerHeight - 40);
+            
+            // Calcular posición para centrar la ventana
+            const izquierda = (window.innerWidth - ancho) / 2;
+            const arriba = (window.innerHeight - alto) / 2;
+            
+            // Abrir la ventana emergente
+            const ventana = window.open(
+                'uploader.html', 
+                'UploaderWearWise',
+                `width=${ancho},height=${alto},left=${izquierda},top=${arriba},resizable=yes,scrollbars=yes,status=no,location=no,menubar=no,toolbar=no`
+            );
+            
+            // Enfocar la ventana si se abrió correctamente
+            if (ventana) {
+                ventana.focus();
+            } else {
+                // Si la ventana no se abrió (posiblemente bloqueada por el navegador)
+                alert('Por favor, permite las ventanas emergentes para este sitio para poder subir artículos.');
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
