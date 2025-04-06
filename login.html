@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WearWise</title>
+    <link rel="stylesheet" href="estilos/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="overlay">
+        <div class="popup-container">
+            <header>
+                <div class="logoLogin">
+                    <img src="img/logo.jpeg" alt="Logo WearWise" class="logo-icon" width="50%" height="40%">
+                </div>
+            </header>
+
+            <main>
+                <div class="form-container">
+                    <div id="loginForm" class="form active">
+                        <h1>¡Hola de nuevo!</h1>
+                        <p class="subtitle">Inicia sesión para poder utilizar WearWise</p>
+
+                        <form id="inicioSesionForm">
+                            <div class="input-group">
+                                <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email" class="input-icon">
+                                <input type="email" id="email" placeholder="Correo electrónico">
+                            </div>
+
+                            <div class="input-group">
+                                <img src="https://api.iconify.design/mdi:lock-outline.svg" alt="Contraseña" class="input-icon">
+                                <input type="password" id="contrasena" placeholder="Contraseña" >
+                            </div>
+
+                            <div class="remember-forgot">
+                                <label class="remember">
+                                    <input type="checkbox" id="remember">
+                                    <span>Recuérdame</span>
+                                </label>
+                                <a href="#" class="forgot-link" data-form="restaurarPsswdForm">¿Has olvidado la contraseña?</a>
+                            </div>
+
+                            <button type="submit" class="iniciosesion-btn">Iniciar sesión</button>
+
+                            <p class="login-link">
+                                ¿Todavía no tienes una cuenta? <a href="#" class="switch-form" data-form="registroForm">Regístrate</a>
+                            </p>
+                        </form>
+                    </div>
+
+                    <div id="registroForm" class="form">
+                        <h1>Crear una cuenta</h1>
+                        <p class="subtitle">Regístrate para poder usar WearWise</p>
+                        <form id="registroFormElm">
+                            <div class="input-group">
+                                <img src="https://api.iconify.design/mdi:account-outline.svg" alt="Nombre y apellidos" class="input-icon">
+                                <input type="text" id="nombre" placeholder="Nombre">
+                            </div>
+                            <div class="input-group">
+                                <img src="https://api.iconify.design/mdi:account-supervisor-circle-outline.svg" alt="Nombre de usuario"
+                                    class="input-icon">
+                                <input type="text" id="nomUsuario" placeholder="Nombre de usuario">
+                            </div>
+                            <div class="input-group">
+                                <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email"
+                                    class="input-icon">
+                                <input type="email" id="emailRegistro" placeholder="Correo electrónico">
+                            </div>
+
+                            <div class="input-group">
+                                <img src="https://api.iconify.design/mdi:lock-outline.svg" alt="Contraseña"
+                                    class="input-icon">
+                                <input type="password" id="contrasenaRegistro" placeholder="Contraseña">
+                            </div>
+
+                            <div class="input-group">
+                                <img src="https://api.iconify.design/mdi:lock-check-outline.svg"
+                                    alt="Confirme su contraseña" class="input-icon">
+                                <input type="password" id="confirmarPsswd" placeholder="Confirme la contraseña">
+                            </div>
+
+                            <button type="submit" class="registro-btn">Crear una cuenta</button>
+
+                            <p class="login-link">
+                                ¿Ya tienes una cuenta? 
+                                <a href="#" class="switch-form" data-form="loginForm">Iniciar sesión</a>
+                            </p>
+                        </form>
+                    </div>
+
+                    <div id="restaurarPsswdForm" class="form">
+                        <h1>Restaurar contraseña</h1>
+                        <p class="subtitle">Introduzca su correo electrónico para recuperar el acceso a su cuenta</p>
+                        <form id="restaurarPsswdForm">
+                            <div class="input-group">
+                                <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Correo electrónico"
+                                    class="input-icon">
+                                <input type="email" id="restaurarCorreo" placeholder="Correo electrónico">
+                            </div>
+
+                            <button type="submit" class="restaurarPsswd-btn">Enviar enlace de recuperación</button>
+                            <p class="login-link">
+                                ¿Recuerdas la contraseña? <a href="#" class="switch-form" data-form="loginForm">Iniciar Sesión</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="javaScript/javaScript.js"></script>
+</body>
+
+</html>
