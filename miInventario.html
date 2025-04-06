@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WearWise</title>
+    <title>Mi Inventario</title>
     <!-- Enlace al archivo CSS externo -->
     <link rel="stylesheet" href="estilos/styles.css">
 </head>
 <body>
+
     <nav>
         <!-- Logo -->
         <div class="logo">
@@ -23,36 +24,72 @@
         </ul>
     </nav>
 
-    <div class="mi-inventario">
-        <h2>Mi Inventario</h2>
-
-        <!-- Menú de filtro -->
-        <div class="filter-menu">
-            <button data-filter="all">Todos</button>
-            <button data-filter="zapatos">Zapatos</button>
-            <button data-filter="partes-arriba">Partes de Arriba</button>
-            <button data-filter="partes-abajo">Partes de Abajo</button>
-            <button data-filter="accesorios">Accesorios</button>
+    <div class="container">
+        <div class="header">
+            <h1>Mi Inventario de Prendas</h1>
         </div>
 
-        <!-- Lista de inventario -->
-        <div class="inventory-list" id="inventory-list">
-            <!-- Los artículos se cargarán aquí desde JavaScript -->
+        <!-- Filtro de categorías -->
+        <div class="filter-container">
+            <select id="categoryFilter">
+                <option value="">Filtrar por Categoría</option>
+                <option value="sudaderas">Sudaderas</option>
+                <option value="jerseis">Jerseis</option>
+                <option value="tops">Tops</option>
+                <option value="pantalones">Pantalones</option>
+                <option value="chandal">Chándal</option>
+                <option value="zapatillas">Zapatillas</option>
+            </select>
         </div>
 
-        <!-- Modal de detalles del artículo -->
-        <div class="item-details-modal" id="item-details-modal">
-            <div class="modal-content">
-                <img src="" alt="Imagen del artículo" id="modal-image">
-                <h3 id="modal-title"></h3>
-                <p id="modal-description"></p>
-                <button class="close-modal" onclick="closeModal()">Cerrar</button>
-            </div>
+        <!-- Contenedor de imágenes -->
+        <div class="image-container" id="imageContainer">
+            <!-- Aquí se mostrarán las imágenes -->
         </div>
     </div>
 
+    <script>
+        const prendasSubidas = [
+            { id: 'PRD123456', tipo: 'sudaderas', marca: 'Nike', talla: 'M', color: 'Rojo', imagenUrl: 'https://via.placeholder.com/150/ff0000/ffffff?text=Imagen+1' },
+            { id: 'PRD123457', tipo: 'jerseis', marca: 'Adidas', talla: 'L', color: 'Azul', imagenUrl: 'https://via.placeholder.com/150/0000ff/ffffff?text=Imagen+2' },
+            { id: 'PRD123458', tipo: 'tops', marca: 'Puma', talla: 'S', color: 'Negro', imagenUrl: 'https://via.placeholder.com/150/000000/ffffff?text=Imagen+3' },
+            { id: 'PRD123459', tipo: 'pantalones', marca: 'Levis', talla: '32', color: 'Verde', imagenUrl: 'https://via.placeholder.com/150/00ff00/ffffff?text=Imagen+4' }
+        ];
 
-    <script src="javascript/script.js"></script>
 
+        // Función para mostrar las imágenes según la categoría seleccionada
+        function mostrarImagenes(categoria) {
+            const container = document.getElementById('imageContainer');
+            container.innerHTML = ''; // Limpiar el contenedor
+
+            // Filtrar las prendas por categoría
+            const prendasFiltradas = categoria ? prendasSubidas.filter(prenda => prenda.tipo === categoria) : prendasSubidas;
+
+            // Mostrar las prendas filtradas
+            prendasFiltradas.forEach(prenda => {
+                const card = document.createElement('div');
+                card.classList.add('image-card');
+
+                const img = document.createElement('img');
+                img.src = prenda.imagenUrl;
+                img.alt = prenda.tipo;
+
+                const p = document.createElement('p');
+                p.textContent = `${prenda.marca} - ${prenda.color} (${prenda.talla})`;
+
+                card.appendChild(img);
+                card.appendChild(p);
+                container.appendChild(card);
+            });
+        }
+
+        // Detectar el cambio en el filtro de categoría
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            mostrarImagenes(this.value);
+        });
+
+        // Cargar todas las imágenes inicialmente
+        mostrarImagenes('');
+    </script>
 </body>
 </html>
