@@ -115,6 +115,42 @@ nav {
     color: #666;
 }
 
+.carousel-wrapper {
+    margin: 40px auto;
+    width: 40%;
+  }
+
+  .carousel {
+    height: 40%;
+  }
+
+  .carousel-inner,
+  .carousel-item,
+  .carousel-item img {
+    height: 40%;
+  }
+
+  .carousel-item img {
+    object-fit: cover;
+  }
+
+  .custom-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .custom-buttons .btn {
+    margin: 10px 0;
+    width: 200px;
+  }
+
+  .textC{
+      background-color: aquamarine;
+      color: black;
+  }
+  
 /**UPLOADER**/
 .uploader{
     box-sizing: border-box;
