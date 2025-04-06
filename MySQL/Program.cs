@@ -10,15 +10,17 @@ namespace UFV_MYSQL
         {      
 
             string query = @"
-                SELECT 
-	                M.nombre AS nombre_modelo, 
-	                numero_plazas, 
-	                F.nombre AS nombre_fabricante, 
-	                nacionalidad
-                FROM 
-	                ufv.modelo M
-	                INNER JOIN ufv.fabricante F 
-		                ON M.id_fabricante = F.id;
+            SELECT 
+                O.id AS id_outfit,
+                O.nombre AS nombre_outfit,
+                P.id AS id_prenda,
+                P.nombre AS nombre_prenda,
+                P.tipo AS tipo_prenda
+            FROM 
+                outfit O
+                INNER JOIN outfit_prenda OP ON O.id = OP.id_outfit
+                INNER JOIN prenda P ON OP.id_prenda = P.id
+            ORDER BY O.id, P.id;
             ";
 
             MySqlConnection databaseConn = new MySqlConnection(Utils.CONNECTION_STRING);
