@@ -172,8 +172,8 @@
   }
   
   .textC {
-    background-color: var(--carousel-text-bg); /* Color original del texto */
-    color: black;
+    
+    color: white;
     margin: 0;
     font-size: 1.2rem;
   }
