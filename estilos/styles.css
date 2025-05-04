@@ -141,7 +141,7 @@
   
   /* ===== CARRUSEL DE INICIO ===== */
   .carousel-wrapper {
-    width: 40%; /* Ancho original del carrusel */
+    width: 50%; /* Ancho original del carrusel */
     margin: 40px auto; /* Margen original */
     border-radius: var(--radius-md);
     overflow: hidden;
