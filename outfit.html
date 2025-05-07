@@ -59,10 +59,14 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center mb-4">
                     <h1 class="display-6 fw-bold">
                         <i class="fas fa-tshirt text-primary me-2"></i>Mis Outfits
                     </h1>
+                    <!-- Botón para generar outfit aleatorio -->
+                    <button id="generateOutfitBtn" class="btn btn-primary btn-lg">
+                        <i class="fas fa-random me-2"></i> Generar Outfit
+                    </button>
                 </div>
 
                 <!-- Filtros -->
@@ -123,8 +127,291 @@
         </div>
     </div>
 
+    <!-- Modal para Outfit Aleatorio -->
+    <div class="modal fade" id="randomOutfitModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-white">Outfit Aleatorio</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Vista principal del outfit -->
+                    <div id="outfitView">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="outfit-preview-container mb-3">
+                                    <div id="randomOutfitPreview" class="outfit-preview"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="fw-bold mb-3">
+                                    <i class="fas fa-list-ul me-2"></i>Prendas incluidas
+                                </h6>
+                                <div id="randomOutfitClothes" class="clothing-list"></div>
+                                <div class="mt-4">
+                                    <button id="saveRandomOutfitBtn" class="btn btn-success w-100">
+                                        <i class="fas fa-save me-2"></i> Guardar Outfit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Formulario para guardar outfit (inicialmente oculto) -->
+                    <div id="saveOutfitForm" class="d-none">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="outfit-preview-container mb-3">
+                                    <div id="saveOutfitPreview" class="outfit-preview"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="fw-bold mb-3">
+                                    <i class="fas fa-save me-2"></i>Guardar Outfit
+                                </h6>
+                                <div class="mb-3">
+                                    <label for="outfitName" class="form-label">Nombre del outfit</label>
+                                    <input type="text" class="form-control" id="outfitName" placeholder="Mi outfit favorito">
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button id="confirmSaveOutfitBtn" class="btn btn-success">
+                                        <i class="fas fa-check me-2"></i> Confirmar
+                                    </button>
+                                    <button id="cancelSaveOutfitBtn" class="btn btn-outline-secondary">
+                                        <i class="fas fa-arrow-left me-2"></i> Volver
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="regenerateOutfitBtn" class="btn btn-primary">
+                        <i class="fas fa-random me-1"></i> Generar Otro
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/outfits.js"></script>
+    <script>
+        // Categorías de ropa
+        const clothingCategories = {
+            tops: [], // Camisetas, blusas, etc.
+            bottoms: [], // Pantalones, faldas, etc.
+            shoes: [], // Zapatos, zapatillas, etc.
+            outerwear: [], // Chaquetas, abrigos, etc.
+            accessories: [] // Accesorios
+        };
+
+        // Variable para almacenar el outfit actual
+        let currentRandomOutfit = null;
+
+        // Función para cargar las prendas desde el inventario
+        function loadClothingItems() {
+            // Simulamos cargar prendas del localStorage (esto debería adaptarse a tu estructura de datos real)
+            const inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+            
+            // Clasificamos cada prenda en su categoría correspondiente
+            inventory.forEach(item => {
+                if (item.category === 'camiseta' || item.category === 'camisa' || item.category === 'blusa') {
+                    clothingCategories.tops.push(item);
+                } else if (item.category === 'pantalon' || item.category === 'falda' || item.category === 'shorts') {
+                    clothingCategories.bottoms.push(item);
+                } else if (item.category === 'zapatos' || item.category === 'zapatillas' || item.category === 'botas') {
+                    clothingCategories.shoes.push(item);
+                } else if (item.category === 'chaqueta' || item.category === 'abrigo' || item.category === 'sudadera') {
+                    clothingCategories.outerwear.push(item);
+                } else if (item.category === 'accesorio' || item.category === 'gorro' || item.category === 'bufanda') {
+                    clothingCategories.accessories.push(item);
+                }
+            });
+        }
+
+        // Función para obtener un elemento aleatorio de un array
+        function getRandomItem(array) {
+            if (array.length === 0) return null;
+            return array[Math.floor(Math.random() * array.length)];
+        }
+
+        // Función para generar un outfit aleatorio
+        function generateRandomOutfit() {
+            const randomOutfit = {
+                top: getRandomItem(clothingCategories.tops),
+                bottom: getRandomItem(clothingCategories.bottoms),
+                shoes: getRandomItem(clothingCategories.shoes),
+                outerwear: getRandomItem(clothingCategories.outerwear),
+                accessory: getRandomItem(clothingCategories.accessories)
+            };
+
+            // Guardar el outfit actual
+            currentRandomOutfit = randomOutfit;
+
+            // Mostrar el outfit en el modal
+            displayRandomOutfit(randomOutfit);
+            
+            // Mostrar la vista principal del outfit y ocultar el formulario
+            document.getElementById('outfitView').classList.remove('d-none');
+            document.getElementById('saveOutfitForm').classList.add('d-none');
+            
+            // Abrir el modal
+            const randomOutfitModal = new bootstrap.Modal(document.getElementById('randomOutfitModal'));
+            randomOutfitModal.show();
+            
+            return randomOutfit;
+        }
+
+        // Función para mostrar el outfit aleatorio en el modal
+        function displayRandomOutfit(outfit) {
+            const previewContainer = document.getElementById('randomOutfitPreview');
+            const clothesList = document.getElementById('randomOutfitClothes');
+            
+            // Limpiar contenedores
+            previewContainer.innerHTML = '';
+            clothesList.innerHTML = '';
+            
+            // Crear la vista previa del outfit
+            const outfitItems = Object.values(outfit).filter(item => item !== null);
+            
+            outfitItems.forEach(item => {
+                if (item) {
+                    // Añadir imagen a la vista previa
+                    const itemImg = document.createElement('div');
+                    itemImg.className = 'outfit-item';
+                    itemImg.innerHTML = `<img src="${item.image}" alt="${item.name}" class="img-fluid">`;
+                    previewContainer.appendChild(itemImg);
+                    
+                    // Añadir a la lista de prendas
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'clothing-item mb-2';
+                    itemElement.innerHTML = `
+                        <div class="d-flex align-items-center">
+                            <div class="clothing-thumbnail me-2">
+                                <img src="${item.image}" alt="${item.name}" class="img-fluid">
+                            </div>
+                            <div>
+                                <div class="fw-bold">${item.name}</div>
+                                <div class="text-muted small">${item.category}</div>
+                            </div>
+                        </div>
+                    `;
+                    clothesList.appendChild(itemElement);
+                }
+            });
+        }
+
+        // Función para mostrar el formulario de guardado
+        function showSaveOutfitForm() {
+            // Ocultar la vista principal del outfit
+            document.getElementById('outfitView').classList.add('d-none');
+            
+            // Mostrar el formulario de guardado
+            document.getElementById('saveOutfitForm').classList.remove('d-none');
+            
+            // Copiar la vista previa del outfit al formulario
+            const originalPreview = document.getElementById('randomOutfitPreview').innerHTML;
+            document.getElementById('saveOutfitPreview').innerHTML = originalPreview;
+            
+            // Establecer un nombre predeterminado
+            document.getElementById('outfitName').value = `Outfit ${new Date().toLocaleDateString()}`;
+            
+            // Enfocar el campo de nombre
+            document.getElementById('outfitName').focus();
+        }
+
+        // Función para volver a la vista del outfit
+        function backToOutfitView() {
+            // Ocultar el formulario de guardado
+            document.getElementById('saveOutfitForm').classList.add('d-none');
+            
+            // Mostrar la vista principal del outfit
+            document.getElementById('outfitView').classList.remove('d-none');
+        }
+
+        // Función para guardar el outfit con el nombre proporcionado
+        function confirmSaveOutfit() {
+            // Obtener el nombre del outfit
+            const outfitName = document.getElementById('outfitName').value.trim();
+            
+            // Validar que se haya ingresado un nombre
+            if (!outfitName) {
+                alert('Por favor, introduce un nombre para el outfit.');
+                return;
+            }
+            
+            // Obtener los datos del outfit actual
+            const outfitItems = [];
+            document.querySelectorAll('#randomOutfitClothes .clothing-item').forEach(item => {
+                const itemName = item.querySelector('.fw-bold').textContent;
+                const itemCategory = item.querySelector('.text-muted').textContent;
+                const itemImage = item.querySelector('img').src;
+                
+                outfitItems.push({
+                    name: itemName,
+                    category: itemCategory,
+                    image: itemImage
+                });
+            });
+            
+            // Crear un nuevo outfit
+            const newOutfit = {
+                id: Date.now().toString(),
+                name: outfitName,
+                category: 'casual', // Por defecto
+                items: outfitItems,
+                date: new Date().toISOString()
+            };
+            
+            // Guardar en localStorage
+            const savedOutfits = JSON.parse(localStorage.getItem('outfits')) || [];
+            savedOutfits.push(newOutfit);
+            localStorage.setItem('outfits', JSON.stringify(savedOutfits));
+            
+            // Cerrar el modal
+            const randomOutfitModal = bootstrap.Modal.getInstance(document.getElementById('randomOutfitModal'));
+            randomOutfitModal.hide();
+            
+            // Actualizar la galería de outfits
+            displayOutfits();
+            
+            // Mostrar mensaje de éxito
+            alert('¡Outfit guardado con éxito!');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar prendas del inventario
+            loadClothingItems();
+            
+            // Botón para generar outfit aleatorio
+            document.getElementById('generateOutfitBtn').addEventListener('click', generateRandomOutfit);
+            
+            // Botón para regenerar outfit
+            document.getElementById('regenerateOutfitBtn').addEventListener('click', generateRandomOutfit);
+            
+            // Botón para mostrar el formulario de guardado
+            document.getElementById('saveRandomOutfitBtn').addEventListener('click', showSaveOutfitForm);
+            
+            // Botón para volver a la vista del outfit
+            document.getElementById('cancelSaveOutfitBtn').addEventListener('click', backToOutfitView);
+            
+            // Botón para confirmar el guardado del outfit
+            document.getElementById('confirmSaveOutfitBtn').addEventListener('click', confirmSaveOutfit);
+            
+            // Permitir enviar el formulario con Enter
+            document.getElementById('outfitName').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    confirmSaveOutfit();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
