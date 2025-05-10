@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="estilos/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <div class="overlay">
         <div class="popup-container">
@@ -55,34 +54,32 @@
                         <p class="subtitle">Regístrate para poder usar WearWise</p>
                         <form id="registroFormElm">
                             <div class="input-group">
-                                <img src="https://api.iconify.design/mdi:account-outline.svg" alt="Nombre y apellidos" class="input-icon">
-                                <input type="text" id="nombre" placeholder="Nombre">
+                                <img src="https://api.iconify.design/mdi:account-outline.svg" alt="Nombre" class="input-icon">
+                                <input type="text" id="nombre" placeholder="Nombre" required>
                             </div>
                             <div class="input-group">
-                                <img src="https://api.iconify.design/mdi:account-supervisor-circle-outline.svg" alt="Nombre de usuario"
-                                    class="input-icon">
-                                <input type="text" id="nomUsuario" placeholder="Nombre de usuario">
+                                <img src="https://api.iconify.design/mdi:account-outline.svg" alt="Apellido" class="input-icon">
+                                <input type="text" id="nomUsuario" placeholder="Apellido" required>
                             </div>
                             <div class="input-group">
-                                <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email"
-                                    class="input-icon">
-                                <input type="email" id="emailRegistro" placeholder="Correo electrónico">
+                                <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email" class="input-icon">
+                                <input type="email" id="emailRegistro" placeholder="Correo electrónico" required>
                             </div>
-
                             <div class="input-group">
-                                <img src="https://api.iconify.design/mdi:lock-outline.svg" alt="Contraseña"
-                                    class="input-icon">
-                                <input type="password" id="contrasenaRegistro" placeholder="Contraseña">
+                                <img src="https://api.iconify.design/mdi:phone-outline.svg" alt="Teléfono" class="input-icon">
+                                <input type="tel" id="telefonoRegistro" placeholder="Teléfono (opcional)">
                             </div>
-
                             <div class="input-group">
-                                <img src="https://api.iconify.design/mdi:lock-check-outline.svg"
-                                    alt="Confirme su contraseña" class="input-icon">
-                                <input type="password" id="confirmarPsswd" placeholder="Confirme la contraseña">
+                                <img src="https://api.iconify.design/mdi:lock-outline.svg" alt="Contraseña" class="input-icon">
+                                <input type="password" id="contrasenaRegistro" placeholder="Contraseña" required minlength="6">
                             </div>
-
-                            <button type="submit" class="registro-btn">Crear una cuenta</button>
-
+                            <div class="input-group">
+                                <img src="https://api.iconify.design/mdi:lock-check-outline.svg" alt="Confirmar contraseña" class="input-icon">
+                                <input type="password" id="confirmarPsswd" placeholder="Confirmar contraseña" required minlength="6">
+                            </div>
+                    
+                            <button type="submit" class="registro-btn">Crear cuenta</button>
+                    
                             <p class="login-link">
                                 ¿Ya tienes una cuenta? 
                                 <a href="#" class="switch-form" data-form="loginForm">Iniciar sesión</a>
