@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y/dOtTNPrFI=",
+  "dgSpecHash": "WuTeMFi29pg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\luisb\\Desktop\\WearWise\\Nueva carpeta\\final\\WearWise\\MySQL\\MySQL.csproj",
+  "projectFilePath": "C:\\Users\\luisb\\Desktop\\WearWise\\Nueva carpeta\\final\\prueba\\WearWise\\MySQL\\MySQL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\luisb\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
     "C:\\Users\\luisb\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
