@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,9 @@
     <!-- Enlace al archivo CSS externo -->
     <link rel="stylesheet" href="estilos/styles.css">
 </head>
+
 <body>
- 
+
     <!-- navbar-expand-md: el navbar se expande completamente a partir de 768px-->
     <nav class="navbar navbar-expand-md custom-navbar navbar-dark">
         <!--Para que ocupe todo el ancho de la página-->
@@ -22,8 +24,9 @@
                 </span>
                 <!--Se oculta en pantallas pequeñas y se muestra como un bloque en pantallas mayores o iguales que sm-->
                 <a class="navbar-brand d-none d-sm-inline-block" href="index.html">
-                    <img src="imagenes/LogoWearWise.png" alt="logo"  class="logo-img d-none d-sm-inline-block" width="120px">
-                   </a>
+                    <img src="imagenes/LogoWearWise.png" alt="logo" class="logo-img d-none d-sm-inline-block"
+                        width="120px">
+                </a>
                 <div class="w-100 text-right">
                     <!--mt: margin-top; mx: margin-right-->
                     <button class="navbar-toggler mt-1 mx-2" type="button" data-bs-toggle="collapse"
@@ -41,23 +44,22 @@
                             Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a href="uploader.html" class="nav-link m-1 menu-item">                          
+                        <a href="uploader.html" class="nav-link m-1 menu-item">
                             Subir artículo</a>
                     </li>
                     <li class="nav-item">
-                        <a href="miInventario.html" class="nav-link m-1 menu-item">                      
+                        <a href="miInventario.html" class="nav-link m-1 menu-item">
                             Mi inventario</a>
                     </li>
                     <li class="nav-item">
                         <a href="outfit.html" class="nav-link m-1 menu-item">
                             Crear outfit</a>
                     </li>
-                    
                     <li class="btn">
                         <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
                     </li>
                 </ul>
-        </div>
+            </div>
     </nav>
 
     <div class="carousel-wrapper">
@@ -78,7 +80,8 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="imagenes/mujermirandoarmario.jpg" class="d-block w-100" alt="Olvídate de pensar qué ponerte">
+                    <img src="imagenes/mujermirandoarmario.jpg" class="d-block w-100"
+                        alt="Olvídate de pensar qué ponerte">
                     <div class="carousel-caption d-none d-md-block">
                         <p class="textC">¿Cansado de esto?</p>
                     </div>
@@ -114,18 +117,18 @@
             // Calcular dimensiones para la ventana emergente
             const ancho = Math.min(800, window.innerWidth - 20);
             const alto = Math.min(700, window.innerHeight - 40);
-            
+
             // Calcular posición para centrar la ventana
             const izquierda = (window.innerWidth - ancho) / 2;
             const arriba = (window.innerHeight - alto) / 2;
-            
+
             // Abrir la ventana emergente
             const ventana = window.open(
-                'uploader.html', 
+                'uploader.html',
                 'UploaderWearWise',
                 `width=${ancho},height=${alto},left=${izquierda},top=${arriba},resizable=yes,scrollbars=yes,status=no,location=no,menubar=no,toolbar=no`
             );
-            
+
             // Enfocar la ventana si se abrió correctamente
             if (ventana) {
                 ventana.focus();
@@ -137,6 +140,7 @@
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="js/javaScript.js"></script>
+    <script src="js/javaScript.js"></script>
 </body>
+
 </html>
