@@ -10,6 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitButton = registroForm.querySelector('button[type="submit"]');
     const originalButtonText = submitButton.textContent;
 
+    const recuerdame = document.getElementById('remember');
+
+    const emailRecordado = localStorage.getItem('emailRecordado');
+    if (emailRecordado) {
+        email.value = emailRecordado;
+        recuerdame.checked = true;
+    }
+
     switchFormLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -61,8 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Guardar datos de usuario en localStorage o sessionStorage
                 if (remember) {
                     localStorage.setItem('user', JSON.stringify(result.user));
+                    localStorage.setItem('emailRecordado', email);
                 } else {
                     sessionStorage.setItem('user', JSON.stringify(result.user));
+                    localStorage.removeItem('emailRecordado');
                 }
 
                 if (result.user.Tipo === 'CLIENTE') {
@@ -210,4 +220,17 @@ function showError(form, message) {
     form.appendChild(errorDiv);
 
     setTimeout(() => errorDiv.remove(), 5000);
+}
+
+function cerrarSesion() {
+    const userRecordado = JSON.parse(localStorage.getItem('user'));
+
+    localStorage.clear();
+    sessionStorage.clear();
+
+    if (userRecordado?.email) {
+        localStorage.setItem('emailRecordado', userRecordado.email);
+    }
+
+    window.location.href = 'login.html';
 }
