@@ -213,6 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="tipo_corte">Tipo de Corte</label>
                         <select id="tipo_corte" class="form-control" required>
                             <option value="">Seleccionar...</option>
+                            <option value="Otro">Otro</option>
                             <option value="Manga corta">Manga corta</option>
                             <option value="Manga larga">Manga larga</option>
                             <option value="Tirantes">Tirantes</option>

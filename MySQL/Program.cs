@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,8 @@ using MySql.Data.MySqlClient;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using UFV_MYSQL;
+
+#pragma warning disable CS8618 // Las propiedades que no aceptan valores NULL pueden contener valores NULL si no se inicializan
 
 public class LoginRequest
 {
@@ -59,6 +62,31 @@ public class PrendaRequest
     public string? ImagenBase64 { get; set; }
 }
 
+// Añadir esta clase para la respuesta de prendas
+public class PrendaResponse
+{
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
+    
+    [JsonPropertyName("nombre")]
+    public string Nombre { get; set; }
+    
+    [JsonPropertyName("tipo")]
+    public string Tipo { get; set; }
+    
+    [JsonPropertyName("estilo")]
+    public string Estilo { get; set; }
+    
+    [JsonPropertyName("tipo_corte")]
+    public string TipoCorte { get; set; }
+    
+    [JsonPropertyName("estacion")]
+    public string Estacion { get; set; }
+    
+    [JsonPropertyName("imagen")]
+    public string Imagen { get; set; }
+}
+
 class Program
 {
     static void Main(string[] args)
@@ -78,7 +106,8 @@ class Program
                 app.Map("/api/login", HandleLogin);
                 app.Map("/api/register", HandleRegister);
                 app.Map("/api/checkdb", HandleCheckDb);
-                app.Map("/api/prenda", HandlePrenda); // Nueva ruta para manejar prendas
+                app.Map("/api/prenda", HandlePrenda); // Endpoint para subir prendas
+                app.Map("/api/prendas", HandleGetPrendas); // Endpoint para obtener prendas
             })
             .Build();
 
@@ -295,7 +324,7 @@ class Program
         });
     }
     
-    // Nuevo método para manejar la subida de prendas
+    // Método para manejar la subida de prendas
     static void HandlePrenda(IApplicationBuilder app)
     {
         app.Run(async context => {
@@ -391,6 +420,95 @@ class Program
                             success = true,
                             message = "Prenda guardada correctamente",
                             prendaId = prendaId
+                        }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    context.Response.StatusCode = 500;
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(new {
+                        success = false,
+                        message = "Error en el servidor: " + ex.Message
+                    }));
+                }
+            }
+            else
+            {
+                context.Response.StatusCode = 405;
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new {
+                    success = false,
+                    message = "Método no permitido"
+                }));
+            }
+        });
+    }
+
+    // Método para obtener las prendas
+    static void HandleGetPrendas(IApplicationBuilder app)
+    {
+        app.Run(async context => {
+            // Configurar el tipo de contenido de la respuesta
+            context.Response.ContentType = "application/json";
+            
+            if (context.Request.Method == "GET")
+            {
+                try
+                {
+                    // Obtener el ID del usuario (por ahora usamos 1 como ejemplo)
+                    int userId = 1; // En el futuro, esto vendría de la autenticación
+                    
+                    using (var connection = new MySqlConnection(Utils.CONNECTION_STRING))
+                    {
+                        await connection.OpenAsync();
+                        
+                        // Obtener el ID del armario del usuario
+                        var armarioQuery = new MySqlCommand(
+                            "SELECT id FROM armario WHERE id_cliente = @id_cliente",
+                            connection);
+                        armarioQuery.Parameters.AddWithValue("@id_cliente", userId);
+                        
+                        var armarioId = Convert.ToInt32(await armarioQuery.ExecuteScalarAsync());
+                        
+                        // Obtener todas las prendas del armario del usuario
+                        var prendasQuery = new MySqlCommand(
+                            "SELECT p.id, p.nombre, p.tipo, p.estilo, p.tipo_corte, p.estacion, p.imagen_prenda " +
+                            "FROM prenda p " +
+                            "JOIN armario_prenda ap ON p.id = ap.id_prenda " +
+                            "WHERE ap.id_armario = @id_armario",
+                            connection);
+                        prendasQuery.Parameters.AddWithValue("@id_armario", armarioId);
+                        
+                        var prendas = new List<PrendaResponse>();
+                        
+                        using (var reader = await prendasQuery.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                var prenda = new PrendaResponse
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Nombre = reader.GetString(1),
+                                    Tipo = reader.GetString(2),
+                                    Estilo = reader.GetString(3),
+                                    TipoCorte = reader.GetString(4),
+                                    Estacion = reader.GetString(5),
+                                    Imagen = ""
+                                };
+                                
+                                // Convertir la imagen a base64 si existe
+                                if (!reader.IsDBNull(6))
+                                {
+                                    byte[] imagenBytes = (byte[])reader.GetValue(6);
+                                    prenda.Imagen = "data:image/jpeg;base64," + Convert.ToBase64String(imagenBytes);
+                                }
+                                
+                                prendas.Add(prenda);
+                            }
+                        }
+                        
+                        await context.Response.WriteAsync(JsonSerializer.Serialize(new {
+                            success = true,
+                            prendas = prendas
                         }));
                     }
                 }
