@@ -1,3 +1,83 @@
+<?php
+// Sección de procesamiento PHP (al inicio del archivo)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Conexión a la base de datos
+    $servername = "localhost";
+    $username = "root"; 
+    $password = "";
+    $dbname = "wear_wise";
+
+    // Crear conexión
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn->set_charset("utf8mb4");
+
+    // Verificar conexión
+    if ($conn->connect_error) {
+        die(json_encode(['success' => false, 'message' => "Error de conexión: " . $conn->connect_error]));
+    }
+
+    // Obtener datos del formulario
+    $nombre = isset($_POST['nombre']) ? $conn->real_escape_string($_POST['nombre']) : '';
+    $tipo = isset($_POST['tipo']) ? $conn->real_escape_string($_POST['tipo']) : '';
+    $estilo = isset($_POST['estilo']) ? $conn->real_escape_string($_POST['estilo']) : '';
+    $tipo_corte = isset($_POST['tipo_corte']) ? $conn->real_escape_string($_POST['tipo_corte']) : '';
+    $estacion = isset($_POST['estacion']) ? $conn->real_escape_string($_POST['estacion']) : '';
+    
+    // Procesar la imagen
+    $imagen_prenda = null;
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
+        $imagen_prenda = file_get_contents($_FILES['imagen']['tmp_name']);
+    }
+    
+    // Preparar la consulta SQL
+    $stmt = $conn->prepare("INSERT INTO prenda (nombre, tipo, estilo, tipo_corte, estacion, imagen_prenda) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $nombre, $tipo, $estilo, $tipo_corte, $estacion, $imagen_prenda);
+    
+    // Ejecutar la consulta
+    $result = ['success' => false, 'message' => 'Error al guardar la prenda'];
+    
+    if ($stmt->execute()) {
+        // Obtener el ID de la prenda insertada
+        $prenda_id = $conn->insert_id;
+        
+        // Obtener el ID del armario del usuario (asumimos usuario con ID 1)
+        $user_id = 1; // Reemplazar con el ID del usuario actual cuando tengas sistema de login
+        
+        // Obtener el ID del armario
+        $armario_query = "SELECT id FROM armario WHERE id_cliente = ?";
+        $armario_stmt = $conn->prepare($armario_query);
+        $armario_stmt->bind_param("i", $user_id);
+        $armario_stmt->execute();
+        $armario_result = $armario_stmt->get_result();
+        
+        if ($armario_row = $armario_result->fetch_assoc()) {
+            $armario_id = $armario_row['id'];
+            
+            // Insertar en la tabla armario_prenda
+            $ap_stmt = $conn->prepare("INSERT INTO armario_prenda (id_armario, id_prenda) VALUES (?, ?)");
+            $ap_stmt->bind_param("ii", $armario_id, $prenda_id);
+            $ap_stmt->execute();
+            $ap_stmt->close();
+            
+            $result = ['success' => true, 'message' => 'Prenda guardada correctamente', 'prenda_id' => $prenda_id];
+        } else {
+            $result = ['success' => false, 'message' => 'No se encontró un armario para este usuario'];
+        }
+        
+        $armario_stmt->close();
+    } else {
+        $result = ['success' => false, 'message' => 'Error al guardar la prenda: ' . $stmt->error];
+    }
+    
+    $stmt->close();
+    $conn->close();
+    
+    // Devolver respuesta como JSON y terminar la ejecución
+    header('Content-Type: application/json');
+    echo json_encode($result);
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,7 +119,7 @@
                         Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="uploader.html" class="nav-link active m-1 menu-item">                          
+                    <a href="uploader.php" class="nav-link active m-1 menu-item">                          
                         Subir artículo</a>
                 </li>
                 <li class="nav-item">
@@ -211,10 +291,6 @@
         // Variable para almacenar la imagen actual
         let currentImageUrl = null;
         let currentImageFile = null;
-        let currentImageBase64 = null;
-        
-        // URL de la API
-        const API_URL = 'http://localhost:5000/api/prenda';
         
         // Formatos de imagen soportados
         const supportedFormats = [
@@ -236,18 +312,8 @@
             return supportedExtensions.some(ext => lowerFilename.endsWith(ext));
         }
 
-        // Función para convertir un archivo a Base64
-        function fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        }
-
         // Función para manejar el cambio de archivo
-        async function handleFileChange(e) {
+        function handleFileChange(e) {
             let file;
             
             // Verificar si es un evento de input file o un evento de drop
@@ -267,15 +333,6 @@
             
             // Guardar el archivo para enviarlo más tarde
             currentImageFile = file;
-            
-            try {
-                // Convertir el archivo a Base64
-                currentImageBase64 = await fileToBase64(file);
-            } catch (error) {
-                console.error("Error al convertir la imagen a Base64:", error);
-                showError("Error al procesar la imagen");
-                return;
-            }
             
             // Mostrar nombre del archivo
             fileName.textContent = `Archivo: ${file.name}`;
@@ -396,7 +453,6 @@
                 previewImage.src = '';
                 currentImageUrl = null;
                 currentImageFile = null;
-                currentImageBase64 = null;
             }
             
             // Resetear los campos del formulario
@@ -483,10 +539,7 @@
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(cameraPreview, 0, 0, canvas.width, canvas.height);
                 
-                // Convertir el canvas a una imagen base64
-                currentImageBase64 = canvas.toDataURL('image/jpeg', 0.95);
-                
-                // Crear un blob a partir del canvas para la vista previa
+                // Convertir el canvas a una imagen
                 canvas.toBlob(blob => {
                     // Crear un archivo a partir del blob
                     currentImageFile = new File([blob], "foto_capturada.jpg", { type: "image/jpeg" });
@@ -552,7 +605,7 @@
         }
         
         // Función para guardar la prenda en la base de datos
-        async function savePrenda() {
+        function savePrenda() {
             // Validar que todos los campos estén completos
             if (!validateForm()) {
                 showError("Por favor, completa todos los campos del formulario");
@@ -560,7 +613,7 @@
             }
             
             // Validar que haya una imagen
-            if (!currentImageBase64) {
+            if (!currentImageFile) {
                 showError("Por favor, selecciona o captura una imagen");
                 return;
             }
@@ -568,34 +621,27 @@
             // Mostrar mensaje de estado
             showStatus("Guardando prenda...");
             
-            // Crear objeto con los datos de la prenda
-            const prendaData = {
-                nombre: nombreInput.value,
-                tipo: tipoSelect.value,
-                estilo: estiloSelect.value,
-                tipo_corte: tipoCorteSelect.value,
-                estacion: estacionSelect.value,
-                imagen: currentImageBase64
-            };
+            // Crear FormData para enviar al servidor
+            const formData = new FormData();
+            formData.append('nombre', nombreInput.value);
+            formData.append('tipo', tipoSelect.value);
+            formData.append('estilo', estiloSelect.value);
+            formData.append('tipo_corte', tipoCorteSelect.value);
+            formData.append('estacion', estacionSelect.value);
+            formData.append('imagen', currentImageFile);
             
-            try {
-                // Enviar datos al servidor
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(prendaData)
-                });
-                
-                // Verificar si la respuesta es exitosa
+            // Enviar datos al servidor (a este mismo archivo)
+            fetch('uploader.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
                 if (!response.ok) {
-                    throw new Error(`Error en la respuesta del servidor: ${response.status}`);
+                    throw new Error('Error en la respuesta del servidor');
                 }
-                
-                // Convertir la respuesta a JSON
-                const data = await response.json();
-                
+                return response.json();
+            })
+            .then(data => {
                 if (data.success) {
                     // Mostrar mensaje de éxito
                     showFloatingSuccess(data.message);
@@ -608,10 +654,11 @@
                     // Mostrar mensaje de error
                     showError(data.message);
                 }
-            } catch (error) {
+            })
+            .catch(error => {
                 console.error("Error al guardar la prenda:", error);
                 showError("Error al guardar la prenda: " + error.message);
-            }
+            });
         }
         
         // Función para validar el formulario
@@ -663,6 +710,5 @@
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

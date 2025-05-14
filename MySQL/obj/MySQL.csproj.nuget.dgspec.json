@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\luisb\\Desktop\\WearWise\\Nueva carpeta\\final\\prueba\\WearWise\\MySQL\\MySQL.csproj": {}
+    "C:\\Users\\dell\\Documents\\WearWise\\WearWise\\WearWise\\MySQL\\MySQL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\luisb\\Desktop\\WearWise\\Nueva carpeta\\final\\prueba\\WearWise\\MySQL\\MySQL.csproj": {
+    "C:\\Users\\dell\\Documents\\WearWise\\WearWise\\WearWise\\MySQL\\MySQL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\luisb\\Desktop\\WearWise\\Nueva carpeta\\final\\prueba\\WearWise\\MySQL\\MySQL.csproj",
+        "projectUniqueName": "C:\\Users\\dell\\Documents\\WearWise\\WearWise\\WearWise\\MySQL\\MySQL.csproj",
         "projectName": "MySQL",
-        "projectPath": "C:\\Users\\luisb\\Desktop\\WearWise\\Nueva carpeta\\final\\prueba\\WearWise\\MySQL\\MySQL.csproj",
-        "packagesPath": "C:\\Users\\luisb\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\luisb\\Desktop\\WearWise\\Nueva carpeta\\final\\prueba\\WearWise\\MySQL\\obj\\",
+        "projectPath": "C:\\Users\\dell\\Documents\\WearWise\\WearWise\\WearWise\\MySQL\\MySQL.csproj",
+        "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dell\\Documents\\WearWise\\WearWise\\WearWise\\MySQL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\luisb\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\dell\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -80,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
