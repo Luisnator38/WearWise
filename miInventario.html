@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="estilos/styles.css">
 </head>
+
 <body>
     <!-- navbar-expand-md: el navbar se expande completamente a partir de 768px-->
     <nav class="navbar navbar-expand-md custom-navbar navbar-dark">
@@ -36,7 +38,7 @@
                 <!--ms-auto: pone la lista a la derecha; flex-nowrap: los elementos de la lista no se envuelven-->
                 <ul class="navbar-nav ms-auto flex-nowrap nav-underline">
                     <li class="nav-item active">
-                        <a href="index.html" class="nav-link m-1 menu-item " >
+                        <a href="index.html" class="nav-link m-1 menu-item ">
                             Inicio</a>
                     </li>
                     <li class="nav-item">
@@ -77,6 +79,11 @@
                 <option value="pantalones">Pantalones</option>
                 <option value="chandal">Chándal</option>
                 <option value="zapatillas">Zapatillas</option>
+                <option value=" camisetas">Camisetas</option>
+                <option value="camisas">Camisas</option>
+                <option value="chaquetas">Chaquetas</option>
+                <option value="abrigos">Abrigos</option>
+                <option value="vaqueros">Vaqueros</option>
             </select>
         </div>
 
@@ -88,10 +95,22 @@
 
     <script>
         const prendasSubidas = [
-            { id: 'PRD123456', tipo: 'sudaderas', marca: 'Nike', talla: 'M', color: 'Rojo', imagenUrl:"imagenes/sudadera.jpg"},
+            { id: 'PRD123456', tipo: 'sudaderas', marca: 'Nike', talla: 'M', color: 'Rojo', imagenUrl: "imagenes/sudadera.jpg" },
             { id: 'PRD123457', tipo: 'jerseis', marca: 'Silbon', talla: 'L', color: 'Azul', imagenUrl: "imagenes/camisa.jpg" },
-            { id: 'PRD123458', tipo: 'tops', marca: 'Puma', talla: 'S', color: 'Negro', imagenUrl: "imagenes/toppuma.jpg"},
-            { id: 'PRD123459', tipo: 'pantalones', marca: 'Levis', talla: '32', color: 'Verde', imagenUrl: "imagenes/pants.jpg" }
+            { id: 'PRD123458', tipo: 'tops', marca: 'Puma', talla: 'S', color: 'Negro', imagenUrl: "imagenes/toppuma.jpg" },
+            { id: 'PRD123459', tipo: 'pantalones', marca: 'Zara', talla: '38', color: 'Blanco', imagenUrl: "imagenes/pantalonlino.jpg" },
+            { id: 'PRD123460', tipo: 'camisetas', marca: 'H&M', talla: 'M', color: 'Negro', imagenUrl: "imagenes/camisetanegra.jpg" },
+            { id: 'PRD123461', tipo: 'camisas', marca: 'Scalpers', talla: 'M', color: 'Azul', imagenUrl: "imagenes/camisaazul.jpg" },
+            { id: 'PRD123462', tipo: 'camisetas', marca: 'Yuxus', talla: 'M', color: 'Amarilla', imagenUrl: "imagenes/camisetaamarilla.png" },
+            { id: 'PRD123463', tipo: 'chaquetas', marca: 'Pull&Bear', talla: 'M', color: 'Negro', imagenUrl: "imagenes/chaquetacuero.jpg" },
+            { id: 'PRD123464', tipo: 'zapatillas', marca: 'Converse', talla: '42', color: 'Negro', imagenUrl: "imagenes/zapatillas.jpg" },
+            { id: 'PRD123465', tipo: 'vaqueros', marca: 'H&M', talla: '38', color: 'Gris', imagenUrl: "imagenes/vaquerosgrises.jpg" },
+            { id: 'PRD123466', tipo: 'chaquetas', marca: 'Breskha', talla: 'S', color: 'Verde', imagenUrl: "imagenes/chaquetaverde.jpg" },
+            { id: 'PRD123467', tipo: 'abrigos', marca: 'Zara', talla: 'S', color: 'Gris', imagenUrl: "imagenes/abrigo.jpg" },
+            { id: 'PRD123468', tipo: 'jerseis', marca: 'Scalpers', talla: 'M', color: 'Marrón', imagenUrl: "imagenes/jersey.jpg" },
+            { id: 'PRD123469', tipo: 'sudaderas', marca: 'Scuffers', talla: 'S', color: 'Rosa', imagenUrl: "imagenes/sudaderarosa.jpg" },
+            { id: 'PRD123470', tipo: 'vaqueros', marca: 'Levis', talla: '38', color: 'Azul', imagenUrl: "imagenes/vaqueros.jpg" },
+
         ];
 
         // Función para mostrar las imágenes según la categoría seleccionada
@@ -121,12 +140,14 @@
         }
 
         // Detectar el cambio en el filtro de categoría
-        document.getElementById('categoryFilter').addEventListener('change', function() {
+        document.getElementById('categoryFilter').addEventListener('change', function () {
             mostrarImagenes(this.value);
         });
 
         // Cargar todas las imágenes inicialmente
         mostrarImagenes('');
     </script>
+    <script src="js/javaScript.js"></script>
 </body>
+
 </html>
