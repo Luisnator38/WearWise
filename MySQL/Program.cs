@@ -8,8 +8,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using UFV_MYSQL;
 
-#pragma warning disable CS8618 // Las propiedades que no aceptan valores NULL pueden contener valores NULL si no se inicializan
-
 public class LoginRequest
 {
     [JsonPropertyName("email")]
