@@ -4,59 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Prendas</title>
-    <link rel="stylesheet" href="estilos/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="stylesheet" href="estilos/styles.css">
 </head>
 <body>
-   <!-- navbar-expand-md: el navbar se expande completamente a partir de 768px-->
-   <nav class="navbar navbar-expand-md custom-navbar navbar-dark">
-    <!--Para que ocupe todo el ancho de la página-->
-    <div class="container-fluid">
-        <!--Diseño flexible y el contenedor ocupa todo el espacio restante-->
-        <div class="d-flex flex-grow-1">
-            <!--Ancho del 100% y se oculta en pantallas grandes siendo un bloque visible en pantallas menores-->
-            <span class="w-100 d-lg-none d-block">
-            </span>
-            <!--Se oculta en pantallas pequeñas y se muestra como un bloque en pantallas mayores o iguales que sm-->
-            <a class="navbar-brand d-none d-sm-inline-block" href="index.html">
-                <img src="imagenes/LogoWearWise.png" alt="logo"  class="logo-img d-none d-sm-inline-block" width="120px">
-               </a>
-            <div class="w-100 text-right">
-                <!--mt: margin-top; mx: margin-right-->
-                <button class="navbar-toggler mt-1 mx-2" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#myNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+
+    <!-- navbar-expand-md: el navbar se expande completamente a partir de 768px-->
+    <nav class="navbar navbar-expand-md custom-navbar navbar-dark">
+        <!--Para que ocupe todo el ancho de la página-->
+        <div class="container-fluid">
+            <!--Diseño flexible y el contenedor ocupa todo el espacio restante-->
+            <div class="d-flex flex-grow-1">
+                <!--Ancho del 100% y se oculta en pantallas grandes siendo un bloque visible en pantallas menores-->
+                <span class="w-100 d-lg-none d-block">
+                </span>
+                <!--Se oculta en pantallas pequeñas y se muestra como un bloque en pantallas mayores o iguales que sm-->
+                <a class="navbar-brand d-none d-sm-inline-block" href="index.html">
+                    <img src="imagenes/LogoWearWise.png" alt="logo" class="logo-img d-none d-sm-inline-block"
+                        width="120px">
+                </a>
+                <div class="w-100 text-right">
+                    <!--mt: margin-top; mx: margin-right-->
+                    <button class="navbar-toggler mt-1 mx-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#myNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
             </div>
-        </div>
-        <!--Cuando se pulsa el botón se despliega el menú ocupando todo el espacio (flex-grow) y alineando todos los textos a la derecha-->
-        <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
-            <!--ms-auto: pone la lista a la derecha; flex-nowrap: los elementos de la lista no se envuelven-->
-            <ul class="navbar-nav ms-auto flex-nowrap nav-underline">
-                <li class="nav-item active">
-                    <a href="index.html" class="nav-link m-1 menu-item " aria-current="page">
-                        Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="uploader.html" class="nav-link active m-1 menu-item">                          
-                        Subir artículo</a>
-                </li>
-                <li class="nav-item">
-                    <a href="miInventario.html" class="nav-link m-1 menu-item">                      
-                        Mi inventario</a>
-                </li>
-                <li class="nav-item">
-                    <a href="outfit.html" class="nav-link m-1 menu-item">
-                        Crear outfit</a>
-                </li>
-                   <li class="btn">
-                        <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
+            <!--Cuando se pulsa el botón se despliega el menú ocupando todo el espacio (flex-grow) y alineando todos los textos a la derecha-->
+            <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+                <!--ms-auto: pone la lista a la derecha; flex-nowrap: los elementos de la lista no se envuelven-->
+                <ul class="navbar-nav ms-auto flex-nowrap nav-underline">
+                    <li class="nav-item active">
+                        <a href="index.html" class="nav-link m-1 menu-item ">
+                            Inicio</a>
                     </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+                    <li class="nav-item">
+                        <a href="uploader.html" class="nav-link active m-1 menu-item" aria-current="page">
+                            Subir artículo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="miInventario.html" class="nav-link m-1 menu-item">
+                            Mi inventario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="outfit.html" class="nav-link m-1 menu-item" aria-current="page">
+                            Crear outfit</a>
+                    </li>
+                </ul>
+                <div class="w-100 d-md-none d-flex justify-content-center mt-2">
+                    <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
+                </div>
+
+                <div class="d-none d-md-block ms-3">
+                    <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
+                </div>
+            </div>
+    </nav>
+
     <div class="container">
         <div class="header">
             <h1>Añade una nueva prenda</h1>

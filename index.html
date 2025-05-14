@@ -55,12 +55,17 @@
                         <a href="outfit.html" class="nav-link m-1 menu-item">
                             Crear outfit</a>
                     </li>
-                    <li class="btn">
-                        <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
-                    </li>
                 </ul>
+                <div class="w-100 d-md-none d-flex justify-content-center mt-2">
+                    <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
+                </div>
+
+                <div class="d-none d-md-block ms-3">
+                    <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
+                </div>
             </div>
     </nav>
+
 
     <div class="carousel-wrapper">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">

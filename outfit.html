@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,55 +9,61 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="estilos/styles.css">
 </head>
+
 <body>
-   <!-- navbar-expand-md: el navbar se expande completamente a partir de 768px-->
-   <nav class="navbar navbar-expand-md custom-navbar navbar-dark">
-    <!--Para que ocupe todo el ancho de la página-->
-    <div class="container-fluid">
-        <!--Diseño flexible y el contenedor ocupa todo el espacio restante-->
-        <div class="d-flex flex-grow-1">
-            <!--Ancho del 100% y se oculta en pantallas grandes siendo un bloque visible en pantallas menores-->
-            <span class="w-100 d-lg-none d-block">
-            </span>
-            <!--Se oculta en pantallas pequeñas y se muestra como un bloque en pantallas mayores o iguales que sm-->
-            <a class="navbar-brand d-none d-sm-inline-block" href="index.html">
-                <img src="imagenes/LogoWearWise.png" alt="logo"  class="logo-img d-none d-sm-inline-block" width="120px">
-               </a>
-            <div class="w-100 text-right">
-                <!--mt: margin-top; mx: margin-right-->
-                <button class="navbar-toggler mt-1 mx-2" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#myNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+
+    <!-- navbar-expand-md: el navbar se expande completamente a partir de 768px-->
+    <nav class="navbar navbar-expand-md custom-navbar navbar-dark">
+        <!--Para que ocupe todo el ancho de la página-->
+        <div class="container-fluid">
+            <!--Diseño flexible y el contenedor ocupa todo el espacio restante-->
+            <div class="d-flex flex-grow-1">
+                <!--Ancho del 100% y se oculta en pantallas grandes siendo un bloque visible en pantallas menores-->
+                <span class="w-100 d-lg-none d-block">
+                </span>
+                <!--Se oculta en pantallas pequeñas y se muestra como un bloque en pantallas mayores o iguales que sm-->
+                <a class="navbar-brand d-none d-sm-inline-block" href="index.html">
+                    <img src="imagenes/LogoWearWise.png" alt="logo" class="logo-img d-none d-sm-inline-block"
+                        width="120px">
+                </a>
+                <div class="w-100 text-right">
+                    <!--mt: margin-top; mx: margin-right-->
+                    <button class="navbar-toggler mt-1 mx-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#myNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
             </div>
-        </div>
-        <!--Cuando se pulsa el botón se despliega el menú ocupando todo el espacio (flex-grow) y alineando todos los textos a la derecha-->
-        <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
-            <!--ms-auto: pone la lista a la derecha; flex-nowrap: los elementos de la lista no se envuelven-->
-            <ul class="navbar-nav ms-auto flex-nowrap nav-underline">
-                <li class="nav-item active">
-                    <a href="index.html" class="nav-link m-1 menu-item " aria-current="page">
-                        Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="uploader.html" class="nav-link m-1 menu-item">                          
-                        Subir artículo</a>
-                </li>
-                <li class="nav-item">
-                    <a href="miInventario.html" class="nav-link m-1 menu-item">                      
-                        Mi inventario</a>
-                </li>
-                <li class="nav-item">
-                    <a href="outfit.html" class="nav-link active m-1 menu-item">
-                        Crear outfit</a>
-                </li>
-                   <li class="btn">
-                        <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
+            <!--Cuando se pulsa el botón se despliega el menú ocupando todo el espacio (flex-grow) y alineando todos los textos a la derecha-->
+            <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
+                <!--ms-auto: pone la lista a la derecha; flex-nowrap: los elementos de la lista no se envuelven-->
+                <ul class="navbar-nav ms-auto flex-nowrap nav-underline">
+                    <li class="nav-item active">
+                        <a href="index.html" class="nav-link m-1 menu-item ">
+                            Inicio</a>
                     </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+                    <li class="nav-item">
+                        <a href="uploader.html" class="nav-link m-1 menu-item">
+                            Subir artículo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="miInventario.html" class="nav-link m-1 menu-item">
+                            Mi inventario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="outfit.html" class="nav-link active m-1 menu-item" aria-current="page">
+                            Crear outfit</a>
+                    </li>
+                </ul>
+                <div class="w-100 d-md-none d-flex justify-content-center mt-2">
+                    <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
+                </div>
+
+                <div class="d-none d-md-block ms-3">
+                    <button onclick="cerrarSesion()" class="btn-cerrarsesion">Cerrar sesión</button>
+                </div>
+            </div>
+    </nav>
 
     <!-- Contenido Principal -->
     <div class="container my-5">
@@ -160,7 +167,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Formulario para guardar outfit (inicialmente oculto) -->
                     <div id="saveOutfitForm" class="d-none">
                         <div class="row">
@@ -175,7 +182,8 @@
                                 </h6>
                                 <div class="mb-3">
                                     <label for="outfitName" class="form-label">Nombre del outfit</label>
-                                    <input type="text" class="form-control" id="outfitName" placeholder="Mi outfit favorito">
+                                    <input type="text" class="form-control" id="outfitName"
+                                        placeholder="Mi outfit favorito">
                                 </div>
                                 <div class="d-grid gap-2">
                                     <button id="confirmSaveOutfitBtn" class="btn btn-success">
@@ -221,7 +229,7 @@
         function loadClothingItems() {
             // Simulamos cargar prendas del localStorage (esto debería adaptarse a tu estructura de datos real)
             const inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-            
+
             // Clasificamos cada prenda en su categoría correspondiente
             inventory.forEach(item => {
                 if (item.category === 'camiseta' || item.category === 'camisa' || item.category === 'blusa') {
@@ -259,15 +267,15 @@
 
             // Mostrar el outfit en el modal
             displayRandomOutfit(randomOutfit);
-            
+
             // Mostrar la vista principal del outfit y ocultar el formulario
             document.getElementById('outfitView').classList.remove('d-none');
             document.getElementById('saveOutfitForm').classList.add('d-none');
-            
+
             // Abrir el modal
             const randomOutfitModal = new bootstrap.Modal(document.getElementById('randomOutfitModal'));
             randomOutfitModal.show();
-            
+
             return randomOutfit;
         }
 
@@ -275,14 +283,14 @@
         function displayRandomOutfit(outfit) {
             const previewContainer = document.getElementById('randomOutfitPreview');
             const clothesList = document.getElementById('randomOutfitClothes');
-            
+
             // Limpiar contenedores
             previewContainer.innerHTML = '';
             clothesList.innerHTML = '';
-            
+
             // Crear la vista previa del outfit
             const outfitItems = Object.values(outfit).filter(item => item !== null);
-            
+
             outfitItems.forEach(item => {
                 if (item) {
                     // Añadir imagen a la vista previa
@@ -290,7 +298,7 @@
                     itemImg.className = 'outfit-item';
                     itemImg.innerHTML = `<img src="${item.image}" alt="${item.name}" class="img-fluid">`;
                     previewContainer.appendChild(itemImg);
-                    
+
                     // Añadir a la lista de prendas
                     const itemElement = document.createElement('div');
                     itemElement.className = 'clothing-item mb-2';
@@ -314,17 +322,17 @@
         function showSaveOutfitForm() {
             // Ocultar la vista principal del outfit
             document.getElementById('outfitView').classList.add('d-none');
-            
+
             // Mostrar el formulario de guardado
             document.getElementById('saveOutfitForm').classList.remove('d-none');
-            
+
             // Copiar la vista previa del outfit al formulario
             const originalPreview = document.getElementById('randomOutfitPreview').innerHTML;
             document.getElementById('saveOutfitPreview').innerHTML = originalPreview;
-            
+
             // Establecer un nombre predeterminado
             document.getElementById('outfitName').value = `Outfit ${new Date().toLocaleDateString()}`;
-            
+
             // Enfocar el campo de nombre
             document.getElementById('outfitName').focus();
         }
@@ -333,7 +341,7 @@
         function backToOutfitView() {
             // Ocultar el formulario de guardado
             document.getElementById('saveOutfitForm').classList.add('d-none');
-            
+
             // Mostrar la vista principal del outfit
             document.getElementById('outfitView').classList.remove('d-none');
         }
@@ -342,27 +350,27 @@
         function confirmSaveOutfit() {
             // Obtener el nombre del outfit
             const outfitName = document.getElementById('outfitName').value.trim();
-            
+
             // Validar que se haya ingresado un nombre
             if (!outfitName) {
                 alert('Por favor, introduce un nombre para el outfit.');
                 return;
             }
-            
+
             // Obtener los datos del outfit actual
             const outfitItems = [];
             document.querySelectorAll('#randomOutfitClothes .clothing-item').forEach(item => {
                 const itemName = item.querySelector('.fw-bold').textContent;
                 const itemCategory = item.querySelector('.text-muted').textContent;
                 const itemImage = item.querySelector('img').src;
-                
+
                 outfitItems.push({
                     name: itemName,
                     category: itemCategory,
                     image: itemImage
                 });
             });
-            
+
             // Crear un nuevo outfit
             const newOutfit = {
                 id: Date.now().toString(),
@@ -371,45 +379,45 @@
                 items: outfitItems,
                 date: new Date().toISOString()
             };
-            
+
             // Guardar en localStorage
             const savedOutfits = JSON.parse(localStorage.getItem('outfits')) || [];
             savedOutfits.push(newOutfit);
             localStorage.setItem('outfits', JSON.stringify(savedOutfits));
-            
+
             // Cerrar el modal
             const randomOutfitModal = bootstrap.Modal.getInstance(document.getElementById('randomOutfitModal'));
             randomOutfitModal.hide();
-            
+
             // Actualizar la galería de outfits
             displayOutfits();
-            
+
             // Mostrar mensaje de éxito
             alert('¡Outfit guardado con éxito!');
         }
 
         // Event listeners
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Cargar prendas del inventario
             loadClothingItems();
-            
+
             // Botón para generar outfit aleatorio
             document.getElementById('generateOutfitBtn').addEventListener('click', generateRandomOutfit);
-            
+
             // Botón para regenerar outfit
             document.getElementById('regenerateOutfitBtn').addEventListener('click', generateRandomOutfit);
-            
+
             // Botón para mostrar el formulario de guardado
             document.getElementById('saveRandomOutfitBtn').addEventListener('click', showSaveOutfitForm);
-            
+
             // Botón para volver a la vista del outfit
             document.getElementById('cancelSaveOutfitBtn').addEventListener('click', backToOutfitView);
-            
+
             // Botón para confirmar el guardado del outfit
             document.getElementById('confirmSaveOutfitBtn').addEventListener('click', confirmSaveOutfit);
-            
+
             // Permitir enviar el formulario con Enter
-            document.getElementById('outfitName').addEventListener('keypress', function(e) {
+            document.getElementById('outfitName').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     confirmSaveOutfit();
                 }
@@ -417,4 +425,5 @@
         });
     </script>
 </body>
+
 </html>
